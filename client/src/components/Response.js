@@ -38,7 +38,7 @@ const Response = () => {
             toast.success("Responses saved Succesfully")
             setTimeout(() => {
                 navigate("/choice")
-            }, 3000);
+            }, 5000);
         } catch (error) {
             toast.error(error.message)
         }
@@ -56,7 +56,7 @@ const Response = () => {
                         <Typography variant='h6' sx={{
                             padding: "0.51rem 2rem", marginTop: "1rem", background: "#d6d6d6", borderRadius: "0.3rem", border: "1px solid #9b9999"
                         }}>{index + 1 + ".\t"} {que.questiontitle}{que.formtitle}</Typography>
-                        {que.type == "mcq" ?
+                        {que.typeQ == "mcq" ?
                             <RadioGroup
                                 aria-labelledby="demo-controlled-radio-buttons-group"
                                 onChange={handleChange}

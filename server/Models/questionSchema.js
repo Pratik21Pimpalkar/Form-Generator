@@ -8,9 +8,12 @@ const QuestionSchema = Schema({
     },
     formtitle: {
         type: String,
-        required:"Title required"
+        required: "Title required"
     },
     questions: [{
+        typeQ: {
+            type: String,
+        },
         questiontitle: {
             type: String,
             required: "Question Title is required",

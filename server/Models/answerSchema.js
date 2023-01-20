@@ -11,6 +11,9 @@ const AnswerSchema = Schema({
         required: "Title required"
     },
     questions: [{
+        typeQ: {
+            type: String,
+        },
         questiontitle: {
             type: String,
             required: "Question Title is required",

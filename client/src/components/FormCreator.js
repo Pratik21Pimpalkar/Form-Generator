@@ -2,11 +2,13 @@ import { Button, FormControlLabel, Radio, RadioGroup, TextField, Typography } fr
 import { Box, Container } from '@mui/system'
 import axios from 'axios';
 import React, { useContext, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserContext } from '../Context';
 
 const FormCreator = () => {
+    const navigate = useNavigate();
     const [state, setState] = useContext(UserContext)
     const [typeQ, settypeQ] = React.useState('textfield');
     const [quedata, setQueData] = useState({ questiontitle: "", opt1: "", opt2: "", opt3: "", opt4: "" });
@@ -25,10 +27,11 @@ const FormCreator = () => {
         if (ALlQuestion.length == 5)
             toast.warn("Maximum limit reached to add question");
         else {
-            quedata.type = 'mcq';
+            quedata.typeQ = 'mcq';
             ALlQuestion.push(quedata);
             setQueData({ questiontitle: "", opt1: "", opt2: "", opt3: "", opt4: "" })
             console.log(ALlQuestion);
+
         }
     }
     const SubmitTextQuestion = () => {
@@ -37,8 +40,8 @@ const FormCreator = () => {
         if (ALlQuestion.length == 5)
             toast.warn("Maximum limit reached to add question");
         else {
-            quedata.type = 'textfield'
-            ALlQuestion.push({ username: state.user.name, questiontitle: quedata.questiontitle })
+            quedata.typeQ = 'textfield'
+            ALlQuestion.push({ username: state.user.name, questiontitle: quedata.questiontitle, typeQ: quedata.typeQ })
             setQueData({ formtitle: "", questiontitle: "", opt1: "", opt2: "", opt3: "", opt4: "" })
             console.log(ALlQuestion);
         }
@@ -51,6 +54,11 @@ const FormCreator = () => {
             setQueData({ questiontitle: "", opt1: "", opt2: "", opt3: "", opt4: "" })
             setformtitle("");
             setAllQuestion([]);
+            setTimeout(() => {
+                toast.warn("Form Saved Succesfully");
+
+            }, 2000);
+            navigate("/choice")
         } catch (error) {
             toast.warn(error.message);
         }
@@ -96,7 +104,7 @@ const FormCreator = () => {
                             <Typography variant='h6' sx={{
                                 padding: "0.51rem 2rem", marginTop: "1rem", background: "#d6d6d6", borderRadius: "0.3rem", border: "1px solid #9b9999"
                             }}>{index + 1 + ".\t"} {que.questiontitle}</Typography>
-                            {que.type == "mcq" ?
+                            {que.typeQ == "mcq" ?
                                 <RadioGroup
                                     aria-labelledby="demo-controlled-radio-buttons-group"
                                     name="controlled-radio-buttons-group"
